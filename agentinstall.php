@@ -50,4 +50,4 @@ systemctl restart infrastructure-agent.service
 
 # 5. Add opsview host
 echo -e "\e[1;35m * Adding host to Opsview...\e[0m"
-curl -sL "http://$url/addhost.php?hostname=$(hostname)&ip=$(hostname -I | cut -d\  -f1)"
+curl -sL "http://$url/addhost.php?hostname=$(hostname)&hostip=$(hostname -I | cut -d\  -f1)"
