@@ -1,28 +1,26 @@
 {
-  "object": {
-    "name": "agent-test-2",
-    "ip": "10.140.4.228",
-    "hosttemplates": [
-      {
-        "ref": "/rest/config/hosttemplate/176"
-      },
-      {
-        "ref": "/rest/config/hosttemplate/222"
-      },
-      {
-        "ref": "/rest/config/hosttemplate/1"
-      }
-    ],
-    "hostgroup": {
-      "ref": "/rest/config/hostgroup/3"
+  "name": "agent-test-2",
+  "ip": "10.140.4.228",
+  "hosttemplates": [
+    {
+      "ref": "/rest/config/hosttemplate/176"
     },
-    "uncommitted": "0",
-    "monitored_by": {
-      "ref": "/rest/config/monitoringcluster/1"
+    {
+      "ref": "/rest/config/hosttemplate/222"
     },
-    "icon": {
-      "path": "/static/images/logos/server.png",
-      "name": "SYMBOL - Server"
+    {
+      "ref": "/rest/config/hosttemplate/1"
     }
+  ],
+  "hostgroup": {
+    "ref": "/rest/config/hostgroup/3"
+  },
+  "uncommitted": "0",
+  "monitored_by": {
+    "ref": "/rest/config/monitoringcluster/1"
+  },
+  "icon": {
+    "path": "/static/images/logos/server.png",
+    "name": "SYMBOL - Server"
   }
 }
