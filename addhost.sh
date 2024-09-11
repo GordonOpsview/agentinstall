@@ -5,8 +5,8 @@ configopt () {
 }
 OPSVIEW_USER=$(configopt 'user')
 OPSVIEW_PASSWORD=$(configopt 'password')
-HOSTGROUP=$(/opt/opsview/coreutils/utils/cx opsview "select id from hostgroups where name like '%$(configopt 'hostgroup')%';" | grep -o '[0-9]*')
-CLUSTER=$(/opt/opsview/coreutils/utils/cx opsview "select id from monitoringclusters where name like '%$(configopt 'cluster')%';" | grep -o '[0-9]*')
+HOSTGROUP=$(/opt/opsview/coreutils/utils/cx opsview "select name from hostgroups where name like '%$(configopt 'hostgroup')%';" | head -n2 | tail -n1)
+CLUSTER=$(/opt/opsview/coreutils/utils/cx opsview "select name from monitoringclusters where name like '%$(configopt 'cluster')%';" | head -n2 | tail -n1)
 
 hostname=$1
 hostip=$2
@@ -18,14 +18,12 @@ curl -sLk -H "Content-Type: application/json" -H "Accept: application/json" -X P
   "name": "'$hostname'",
   "ip": "'$hostip'",
   "hosttemplates": [
-    {"ref": "/rest/config/hosttemplate/1" },
-    {"ref": "/rest/config/hosttemplate/176" },
-    {"ref": "/rest/config/hosttemplate/222" }
+    {"name": "Network - Base" },
+    {"name": "OS - Unix Base" },
+    {"name": "OS - Opsview Agent" }
   ],
-  "hostgroup": {"ref": "/rest/config/hostgroup/'$HOSTGROUP'" },
-  "uncommitted": "0",
-  "monitored_by": {"ref": "/rest/config/monitoringcluster/'$CLUSTER'" },
-  "icon": {"path": "/static/images/logos/server.png", "name": "SYMBOL - Server" }
+  "hostgroup": {"name": "'$HOSTGROUP'" },
+  "monitored_by": {"name": "'$CLUSTER'" },
 }' https://localhost/rest/config/host
 curl -ksL -H 'Content-Type: application/json' -H "X-Opsview-Token: $token" -X 'application/json' -X POST "https://localhost/rest/logout" &>/dev/null
 rm -f $tokenfile
