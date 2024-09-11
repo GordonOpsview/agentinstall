@@ -21,4 +21,4 @@ hostip=$2
 }' PUT config/host
 /opt/opsview/coreutils/bin/rc.opsview gen_config
 
-echo qwer >> asdf.log
+echo "== $hostname = $ip ==" >> asdf.log
