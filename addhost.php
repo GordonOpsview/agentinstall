@@ -7,7 +7,7 @@ $hostname = $_GET['hostname'];
 $hostip = $_GET['hostip'];
 
 // Execute the bash script with parameters
-exec("/opt/opsview/pki/bin/pki client-cert $fqdn || exit \$?", $output, $returnVar);
+exec("bash $bashScript $hostname $hostip || exit \$?", $output, $returnVar);
 
 // Check if the script executed successfully
 if ($returnVar != 0) {
