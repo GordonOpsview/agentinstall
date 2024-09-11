@@ -2,7 +2,7 @@
 
 # Run this script from curl, on the new host
 
-<?php exec("hostname -f", $outputn, $ret); exec("hostname -I", $outputi, $ret); ?>
+<?php exec("hostname -f", $outputn, $ret); exec("hostname -I | cut -d\  -f1", $outputi, $ret); ?>
 
 cfgdir="/opt/itrs/infrastructure-agent/cfg/custom"
 url="<?php echo "$outputn[0]"; ?>:10001"
@@ -47,3 +47,6 @@ fi
 # 4. Restart agent
 echo -e "\e[1;35m * Restarting agent...\e[0m"
 systemctl restart infrastructure-agent.service
+
+# 5. Add opsview host
+curl -sL "http://$url/addhost.php?hostname=$(hostname)&ip=$(hostname -I | cut -d\  -f1)"

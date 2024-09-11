@@ -14,6 +14,8 @@ if ($returnVar != 0) {
     header('HTTP/1.1 500 Internal Server Error');
     echo "An error occurred while adding the host.";
     exit;
+} else {
+    echo "Host $hostname added.";
 }
 
 // Serve the certificate as a download
