@@ -5,8 +5,6 @@ configopt () {
 }
 OPSVIEW_USER=$(configopt 'user')
 OPSVIEW_PASSWORD=$(configopt 'password')
-HOSTGROUP=$(/opt/opsview/coreutils/utils/cx opsview "select name from hostgroups where name like '%$(configopt 'hostgroup')%';" | head -n2 | tail -n1)
-CLUSTER=$(/opt/opsview/coreutils/utils/cx opsview "select name from monitoringclusters where name like '%$(configopt 'cluster')%';" | head -n2 | tail -n1)
 
 hostname=$1
 hostip=$2
@@ -22,8 +20,6 @@ curl -sLk -H "Content-Type: application/json" -H "Accept: application/json" -X P
     {"name": "OS - Unix Base" },
     {"name": "OS - Opsview Agent" }
   ],
-  "hostgroup": {"name": "'$HOSTGROUP'" },
-  "monitored_by": {"name": "'$CLUSTER'" },
 }' https://localhost/rest/config/host
 curl -ksL -H 'Content-Type: application/json' -H "X-Opsview-Token: $token" -X 'application/json' -X POST "https://localhost/rest/logout" &>/dev/null
 rm -f $tokenfile
