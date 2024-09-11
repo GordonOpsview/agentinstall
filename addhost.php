@@ -12,21 +12,9 @@ exec("echo asdf >> asdf.log", $outputasdf, $returnVarasdf);
 // Check if the script executed successfully
 if ($returnVar != 0) {
     header('HTTP/1.1 500 Internal Server Error');
-    echo "An error occurred while adding the host.";
+    echo "\nAn error occurred while adding the host.\n";
     exit;
 } else {
-    echo "Host $hostname added.";
+    echo "\nHost $hostname added.\n";
 }
-
-// Serve the certificate as a download
-// if (file_exists($outputFile)) {
-//     header('Content-Type: text/plain');
-//     header('Content-Disposition: attachment; filename="' . basename($outputFile) . '"');
-//     header('Content-Length: ' . filesize($outputFile));
-//     readfile($outputFile);
-
-// } else {
-//     header('HTTP/1.1 500 Internal Server Error');
-//     echo "Failed to generate the certificate.";
-// }
 ?>
