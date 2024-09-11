@@ -4,24 +4,21 @@
 ################################
 OPSVIEW_USER='admin'
 OPSVIEW_PASS='initial'
-OPSVIEW_URL='ggs-6101-orc.openstacklocal'
+# OPSVIEW_URL='ggs-6101-orc.openstacklocal'
 ################################
 
-method='GET'
-token=''
-json_file='/home/ggstuart/Code/rest_api_data.json'
-
-function usage() {
-  echo -e "\nUsage: \e[1m$(basename $0)\e[0m: [opts] [GET|PUT|POST|DELETE] url [{JSON data}]
-
-      Opts: -u username
-            -p password
-            -t token
-            -j json file of query
-
-      Examples: `basename $0` -j ~/rest_api_data.json GET http://${OPSVIEW_URL}/rest/status/hostgroup
-                `basename $0` -u admin -p asdf1243 GET http://${OPSVIEW_URL}/rest/status/hostgroup {}\n\n"
+configopt () {
+  grep "^$1:" config | cut -d: -f2- | sed 's/^ *//; s/ *$//'
 }
+
+
+/opt/opsview/coreutils/utils/cx opsview "select id from hostgroups where name like '%other servers%';" | grep -o '[0-9]*'
+
+
+
+# method='GET'
+# token=''
+# json_file='/home/ggstuart/Code/rest_api_data.json'
 
 while [[ $# -gt 0 ]]; do
   case $1 in

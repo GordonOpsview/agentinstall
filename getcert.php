@@ -1,9 +1,7 @@
 <?php
 
-$bashScript = '/tmp/php/generate.sh';
-
 // Collect request parameters
-$fqdn = isset($_GET['fqdn']) ? $_GET['fqdn'] : 'default1';
+$fqdn = $_GET['fqdn'];
 $outputFile = "/opt/opsview/etc/ssl/$fqdn.pem";
 
 // Execute the bash script with parameters
