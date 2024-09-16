@@ -19,4 +19,4 @@ hostip=$2
     {"name": "OS - Opsview Agent" }
   ],
 }' PUT config/host
-/opt/opsview/coreutils/bin/rc.opsview gen_config
+# /opt/opsview/coreutils/bin/rc.opsview gen_config
