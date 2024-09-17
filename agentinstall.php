@@ -9,7 +9,7 @@ url="<?php echo "$outputn[0]"; ?>:10001"
 ip="<?php echo "$outputi[0]"; ?>"
 fqdn=$(hostname -f)
 
-daemons="nginx|mysqld|dockerd"
+daemons="nginx|mysqld|dockerd|k8s|kube|k3s"
 
 # 1. Download and install the infrastructure agent
 

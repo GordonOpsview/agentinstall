@@ -13,6 +13,7 @@ templates=("Network - Base" "OS - Unix Base" "OS - Opsview Agent" )
 
 for d in $daemons; do
   case "${d}" in
+    k8s*|k8s*|kube* ) templates+=("Application - Kubernetes - Node") ;;
     dockerd         ) templates+=("Application - Docker") ;;
     nginx           ) templates+=("Application - HTTP") ;;
     mysqld          ) templates+=("Database - MySQL Server") ;;
