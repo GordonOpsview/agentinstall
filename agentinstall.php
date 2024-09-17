@@ -9,6 +9,8 @@ url="<?php echo "$outputn[0]"; ?>:10001"
 ip="<?php echo "$outputi[0]"; ?>"
 fqdn=$(hostname -f)
 
+daemons="nginx|mysqld|dockerd"
+
 # 1. Download and install the infrastructure agent
 
 if [[ ! -e /opt/itrs/infrastructure-agent ]]; then
@@ -49,5 +51,6 @@ echo -e "\e[1;35m * Restarting agent...\e[0m"
 systemctl restart infrastructure-agent.service
 
 # 5. Add opsview host
+dmns=$(ps -e | awk '{print $4}' | sort -u | grep -E "($daemons)" | gzip -9 | base64 -w0)
 echo -e "\e[1;35m * Adding host to Opsview...\e[0m"
-curl -sL "http://$url/addhost.php?hostname=$(hostname)&hostip=$(hostname -I | cut -d\  -f1)"
+curl -sL "http://$url/addhost.php?hostname=$(hostname)&hostip=$(hostname -I | cut -d\  -f1)&daemons=$dmns"
