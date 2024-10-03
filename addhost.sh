@@ -16,7 +16,7 @@ for d in $daemons; do
   case "${d}" in
     k8s*|k3s*|kube* ) templates+=("Application - Kubernetes - Node") ;;
     dockerd         ) templates+=("Application - Docker") ;;
-    nginx           ) templates+=("Application - HTTP") ;;
+    nginx|httpd     ) templates+=("Application - HTTP") ;;
     mysqld          ) templates+=("Database - MySQL Server") ;;
   esac
 done

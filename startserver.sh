@@ -14,7 +14,7 @@ main () {
 
   # Start PHP server
   cd $wdir && nohup php -S 0.0.0.0:10001 2>/dev/null &
-  echo -e "\n Run the command \e[1;35mcurl -sLo- http://$(hostname -f):10001/agentinstall.php | bash -s --\e[0m on new hosts to install and configure the infrastructure agent.\n"
+  echo -e "\n Run the command \e[1;35mcurl -sLo- http://$(hostname -f):10001/agentinstall.php | sudo bash -s --\e[0m on new hosts to install and configure the infrastructure agent.\n"
 }
 
 ##########################

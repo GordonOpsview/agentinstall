@@ -2,7 +2,7 @@
 
 # Run this script from curl, on the new host
 
-daemons="nginx|mysqld|dockerd|k8s|kube|k3s" # For automatic assignment of host templates 
+daemons="nginx|httpd|mysqld|dockerd|k8s|kube|k3s" # For automatic assignment of host templates 
 
 <?php exec("hostname -f", $outputn, $ret); exec("hostname -I | cut -d\  -f1", $outputi, $ret); ?>
 cfgdir="/opt/itrs/infrastructure-agent/cfg/custom"
