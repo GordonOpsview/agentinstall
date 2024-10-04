@@ -13,16 +13,21 @@ main () {
   # unpackscripts
 
   # Start PHP server
-  cd $wdir && nohup php -S 0.0.0.0:10001 2>/dev/null &
+  # cd $wdir && nohup php -S 0.0.0.0:10001 2>/dev/null &
+  nohup $wdir/frankenphp php-server -l 0.0.0.0:10001 2>/dev/null &
   echo -e "\n Run the command \e[1;35mcurl -sLo- http://$(hostname -f):10001/agentinstall.php | sudo bash -s --\e[0m on new hosts to install and configure the infrastructure agent.\n"
 }
 
 ##########################
 
 installphp () {
-  if ! (which php &>/dev/null); then 
+  # if ! (which php &>/dev/null); then 
+  #   echo -e "\e[1;35m * Installing php...\e[0m"
+  #   yum install -y php || apt install -y php || exit 1
+  # fi
+  if [[ ! -f "$wdir/frankenphp" ]]; then
     echo -e "\e[1;35m * Installing php...\e[0m"
-    yum install -y php || apt install -y php || exit 1
+    curl -sLo "$wdir/frankenphp" "https://github.com/dunglas/frankenphp/releases/download/v1.2.5/frankenphp-linux-x86_64" && chmod +x "$wdir/frankenphp"
   fi
 }
 
@@ -37,4 +42,3 @@ downloadpackages () {
 }
 
 main $@
-
