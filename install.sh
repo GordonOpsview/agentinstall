@@ -12,9 +12,10 @@ main () {
     read -sp "Password: " password
     echo "password: $password" >> /opt/opsview/webapp/docroot/downloads/config
   else
-    /opt/opsview/coreutils/utils/cx opsview "INSERT INTO contacts (fullname,name,description,realm,encrypted_password,role) VALUES ('Agent Installer','agentinstall','Agent Auto-install User','local','$2a$10$aAPfXA7CbTWycjXoUULXK.T.SqWkSuHr2wzexLiSvLk4142RVMzdS',10);"
+    /opt/opsview/coreutils/utils/cx opsview "INSERT INTO contacts (fullname,name,description,realm,encrypted_password,role) VALUES ('Agent Installer','agentinstall','Agent Auto-install User','local','\$2a\$10\$aAPfXA7CbTWycjXoUULXK.T.SqWkSuHr2wzexLiSvLk4142RVMzdS',10);"
   fi
   # Install from git folder
+  echo -e "\e[1;35m * Installing...\e[0m"
   for file in addhost.php addhost.sh agentinstall.php getcert.php config ; do
     cp -f $file /opt/opsview/webapp/docroot/downloads/$file
     chown root:opsview /opt/opsview/webapp/docroot/downloads/$file
@@ -36,6 +37,7 @@ downloadpackages () {
 }
 
 patchnginx () {
+  echo -e "\e[1;35m * Configuring webapp...\e[0m"
   patch -u -b /opt/opsview/webserver/etc/conf.d/opsview.conf <<EOF
 --- opsview.conf.backup
 +++ opsview.conf 
