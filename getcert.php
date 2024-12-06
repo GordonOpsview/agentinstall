@@ -4,8 +4,8 @@
 $fqdn = $_GET['fqdn'];
 $outputFile = "/opt/opsview/etc/ssl/$fqdn.pem";
 
-// Execute the bash script with parameters
-exec("/opt/opsview/pki/bin/pki client-cert $fqdn || exit \$?", $output, $returnVar);
+// Create certificates
+exec("sudo /opt/opsview/pki/bin/pki client-cert $fqdn || exit \$?", $output, $returnVar);
 
 // Check if the script executed successfully
 if ($returnVar != 0) {

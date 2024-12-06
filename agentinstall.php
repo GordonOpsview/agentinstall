@@ -1,12 +1,21 @@
 #!/bin/bash
 
+#[3A[1;35m
+                                                           
+###########################################################
+#                                                         #
+#          [1;39mInstall the ITRS Infrastructure Agent   [1;35m       #
+#          [0;2;39m   Pipe this script to | bash -s --     [0;1;35m       #
+#                                                         #
+###########################################################[0m
+
 # Run this script from curl, on the new host
 
-daemons="nginx|httpd|mysqld|dockerd|k8s|kube|k3s" # For automatic assignment of host templates 
+daemons="nginx|httpd|mysqld|dockerd|k8s|kube" # For automatic assignment of host templates 
 
 <?php exec("hostname -f", $outputn, $ret); exec("hostname -I | cut -d\  -f1", $outputi, $ret); ?>
 cfgdir="/opt/itrs/infrastructure-agent/cfg/custom"
-url="<?php echo "$outputn[0]"; ?>:10001"
+url="<?php echo "$outputn[0]"; ?>/downloads"
 ip="<?php echo "$outputi[0]"; ?>"
 fqdn=$(hostname -f)
 
@@ -25,7 +34,7 @@ if [[ ! -e /opt/itrs/infrastructure-agent ]]; then
     *Oracle*9* | *Red*Hat*9*              ) pm="yum"; pkg="el9.rpm" ;;
     *                                     ) echo "Unknown OS"; exit 1 ;;
   esac
-  curl -sLo $tmpdir/infrastructure-agent-$pkg http://$url/downloads/infrastructure-agent-$pkg
+  curl -sLo $tmpdir/infrastructure-agent-$pkg http://$url/agent/infrastructure-agent-$pkg
   echo -e "\e[1;35m * Installing agent...\e[0m"
   $pm update && $pm makecache
   $pm install -y $tmpdir/infrastructure-agent-$pkg
