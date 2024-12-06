@@ -14,7 +14,11 @@ main () {
   else
     /opt/opsview/coreutils/utils/cx opsview "INSERT INTO contacts (fullname,name,description,realm,encrypted_password,role) VALUES ('Agent Installer','agentinstall','Agent Auto-install User','local','$2a$10$aAPfXA7CbTWycjXoUULXK.T.SqWkSuHr2wzexLiSvLk4142RVMzdS',10);"
   fi
-  # unpackscripts
+  # Install from git folder
+  for file in addhost.php addhost.sh agentinstall.php getcert.php config ; do
+    cp -f $file /opt/opsview/webapp/docroot/downloads/$file
+    chown root:opsview /opt/opsview/webapp/docroot/downloads/$file
+  done
   
   echo -e "\n Run the command \e[1;35mcurl -sLo- https://$(hostname -f)/downloads/agentinstall.php | sudo bash -s --\e[0m on new hosts to install and configure the infrastructure agent.\n"
 }
