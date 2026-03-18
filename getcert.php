@@ -5,6 +5,7 @@ $fqdn = $_GET['fqdn'];
 $outputFile = "/opt/opsview/etc/ssl/$fqdn.pem";
 
 // Create certificates
+// exec("sudo /opt/opsview/pki/bin/pki client-cert $fqdn && sudo chown root:opsview /opt/opsview/etc/ssl/$fqdn.pem || exit \$?", $output, $returnVar);
 exec("sudo /opt/opsview/pki/bin/pki client-cert $fqdn || exit \$?", $output, $returnVar);
 
 // Check if the script executed successfully

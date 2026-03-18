@@ -27,7 +27,7 @@ done
 
 if (($(date +%s)-$(date -r $tokenfile +%s)>900)); then 
   # Only login if the token is older than 15min
-  /opt/opsview/coreutils/bin/opsview_rest --username=$OPSVIEW_USER --password=$OPSVIEW_PASSWORD --token-file $tokenfile GET info &>/dev/null
+  sudo /opt/opsview/coreutils/bin/opsview_rest --username=$OPSVIEW_USER --password=$OPSVIEW_PASSWORD --token-file $tokenfile GET info &>/dev/null
 fi
-/opt/opsview/coreutils/bin/opsview_rest --token-file $tokenfile --data-format=json --data="{\"name\": \"$hostname\", \"ip\": \"$hostip\", \"hosttemplates\": [ ${tlist#,} ]}" PUT config/host
+sudo /opt/opsview/coreutils/bin/opsview_rest --token-file $tokenfile --data-format=json --data="{\"name\": \"$hostname\", \"ip\": \"$hostip\", \"hosttemplates\": [ ${tlist#,} ]}" PUT config/host
 # /opt/opsview/coreutils/bin/rc.opsview gen_config

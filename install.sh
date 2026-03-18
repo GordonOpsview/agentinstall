@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+## Note: This script is a work in progress. Until it's working, you will need to manually run `startserver.sh` to use frankenphp instead
+
 # Run this script on the orchestrator
 
 main () {

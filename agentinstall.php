@@ -34,7 +34,7 @@ if [[ ! -e /opt/itrs/infrastructure-agent ]]; then
     *Oracle*9* | *Red*Hat*9*              ) pm="yum"; pkg="el9.rpm" ;;
     *                                     ) echo "Unknown OS"; exit 1 ;;
   esac
-  curl -sLo $tmpdir/infrastructure-agent-$pkg http://$url/agent/infrastructure-agent-$pkg
+  curl -skLo $tmpdir/infrastructure-agent-$pkg https://$url/agent/infrastructure-agent-$pkg
   echo -e "\e[1;35m * Installing agent...\e[0m"
   $pm update && $pm makecache
   $pm install -y $tmpdir/infrastructure-agent-$pkg
@@ -43,7 +43,7 @@ fi
 # 2. Get the cert
 if [[ ! -e "$cfgdir/${fqdn}.pem" ]]; then
   echo -e "\e[1;35m * Downloading certificate...\e[0m"
-  curl -sLo $cfgdir/${fqdn}.pem "http://$url/getcert.php?fqdn=$fqdn"
+  curl -skLo $cfgdir/${fqdn}.pem "https://$url/getcert.php?fqdn=$fqdn"
 fi
 
 # 3. Edit agent.yml
@@ -61,4 +61,4 @@ systemctl restart infrastructure-agent.service
 # 5. Add opsview host
 dmns=$(ps -e | awk '{print $4}' | sort -u | grep -E "($daemons)" | gzip -9 | base64 -w0)
 echo -e "\e[1;35m * Adding host to Opsview...\e[0m"
-curl -sL "http://$url/addhost.php?hostname=$(hostname)&hostip=$(hostname -I | cut -d\  -f1)&daemons=$dmns"
+curl -skL "https://$url/addhost.php?hostname=$(hostname)&hostip=$(hostname -I | cut -d\  -f1)&daemons=$dmns"
