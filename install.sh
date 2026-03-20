@@ -3,19 +3,10 @@
 ## Note: This script is a work in progress. Until it's working, you will need to manually run `startserver.sh` to use frankenphp instead
 
 # Run this script on the orchestrator
-
 main () {
   downloadpackages
   patchnginx
-  echo -e "\nEnter credentials for Opsview admin user (must have permissions to add hosts), or leave username blank to create a default user.\n"
-  read -p "Username: " username
-  if [[ -n $username ]]; then
-    echo "user: $username" > /opt/opsview/webapp/docroot/downloads/config
-    read -sp "Password: " password
-    echo "password: $password" >> /opt/opsview/webapp/docroot/downloads/config
-  else
-    /opt/opsview/coreutils/utils/cx opsview "INSERT INTO contacts (fullname,name,description,realm,encrypted_password,role) VALUES ('Agent Installer','agentinstall','Agent Auto-install User','local','\$2a\$10\$aAPfXA7CbTWycjXoUULXK.T.SqWkSuHr2wzexLiSvLk4142RVMzdS',10);"
-  fi
+  /opt/opsview/coreutils/utils/cx opsview "INSERT INTO contacts (fullname,name,description,realm,encrypted_password,role) VALUES ('Agent Installer','agentinstall','Agent Auto-install User','local','\$2a\$10\$XAPlOlf2TiP/YTjRaDmzKerM2JzCyRyfV4Eq4N4L4/CRHBPDpA9dq',10);"
   # Install from git folder
   echo -e "\e[1;35m * Installing...\e[0m"
   for file in addhost.php addhost.sh agentinstall.php getcert.php config ; do
